@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>JavaScriptで計算させる</title>
+<script type="text/javascript">
+var st = prompt("文字列を入力してください");
+document.write("あなたが入力した文字列は 「" + st + "」でした。" + "<br />");
+alert("今度は計算してみましょう。数値は半角の整数で入力してね！");
+var a = prompt("a + b を計算します。aの値を入力してください");
+var b = prompt("b の値を入力してください");
+document.write("入力  a = " + a + ":  b = " + b + "<br />");
+document.write("a + b = " + (parseInt(a) + parseInt(b)) + "<br />");
+document.write("a - b = " + (parseInt(a) - parseInt(b)) + "<br />");
+document.write("a × b = " + parseInt(a) * parseInt(b) + "<br />");
+document.write("a ÷ b = " + parseInt(a) / parseInt(b));
+</script>
+</head>
+
+<body>
+</body>
+</html>

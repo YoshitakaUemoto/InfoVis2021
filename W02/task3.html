@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>sample1</title>
+</head>
+<body>
+  <form id="form1" action="#">
+    v0:
+    <input type="number" id="v0x">
+    <input type="number" id="v0y">
+    <input type="number" id="v0z">
+    v1:
+    <input type="number" id="v1x">
+    <input type="number" id="v1y">
+    <input type="number" id="v1z">
+    v2:
+    <input type="number" id="v2x">
+    <input type="number" id="v2y">
+    <input type="number" id="v2z">
+    <input type="button" onclick="calc()" value="calc">
+  </form>
+  <script src="vec3.js"></script>
+  <script language="javascript" type="text/javascript">
+    function calc(){
+	const v0 = new Vec3(document.getElementById("v0x"),document.getElementById("v0y"),document.getElementById("v0z"));
+	const v1 = new Vec3(document.getElementById("v1x"),document.getElementById("v1y"),document.getElementById("v1z"));
+	const v2 = new Vec3(document.getElementById("v2x"),document.getElementById("v2y"),document.getElementById("v2z"));
+	const a = new Vec3(v1.x.value-v0.x.value,v1.y.value-v0.y.value,v1.z.value-v0.z.value);
+	const b = new Vec3(v2.x.value-v0.x.value,v2.y.value-v0.y.value,v2.z.value-v0.z.value);
+	var result = (1/2)*Math.sqrt((Math.pow(a.x,2)+Math.pow(a.y,2)+Math.pow(a.z,2))*(Math.pow(b.x,2)+Math.pow(b.y,2)+Math.pow(b.z,2))-Math.pow(a.x*b.x+a.y*b.y+a.z*b.z,2));
+	document.write("result:"+result);
+    }
+  </script>
+</body>
+</html>
