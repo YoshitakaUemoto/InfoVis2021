@@ -1,0 +1,54 @@
+<script type="text/javascript">
+  var w = 400;
+  var h = 250;
+  var space = 2;
+ 
+  var dataset = [ 10, 5, 3, 20, 4, 8, 11, 1, 6, 9 ];
+ 
+  //SVG要素を作成
+  var svg = d3.select("body")
+              .append("svg")
+              .attr("width", w)
+              .attr("height", h);
+ 
+  svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x", function(d, i) {
+          return i * (w / dataset.length);
+      })
+      .attr("y", function(d) {
+            return h - d * 10;
+      })
+      .attr("width", w / dataset.length - space)
+      .attr("height", function(d) {
+            return d * 10;
+      })
+      .attr("fill", function(d) {
+         //dの最大値が20なので、青の最大値が240になる
+         return "rgb(0, 0, " + (d * 12) + ")";
+      });
+ 
+  var barW = w / dataset.length - space;    //バーの幅
+ 
+  svg.selectAll("text")      //配列の数分だけtextを用意する
+     .data(dataset)
+     .enter()
+     .append("text")         //textを追加
+     .text(function(d) {
+           return d;         //textを表示
+     })
+  .attr("x", function(d, i) {
+        //barW / 2は、バーの幅の中央を計算する
+        return i * (w / dataset.length) + barW / 2;
+  })
+  .attr("y", function(d) {
+        return h - (d * 10) + 15;
+  })
+  .attr("text-anchor", "middle")      //テキストを中央揃え
+  .attr("font-family", "sans-serif")     //サンセリフ
+  .attr("font-size", "11px")
+  .attr("fill", "white");
+ 
+</script>
