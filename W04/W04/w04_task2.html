@@ -14,17 +14,17 @@
 		.data(data)
 	        .enter()  
 	        .append("rect")
-	         .attr("x", 10 + padding)
+	         .attr("x", 40 + padding)
 	         .attr("y", function(d,i){ return padding + i * (height + padding); })
 	        .attr("width", function(d){ return d.width; })
 		  .attr("height",height);
-	     // svg.selectAll("text")
-	//	  .data(data)
-	//	  .enter()
-	//	  .append("text")
-	//	  .text(function(d){ return d.label;})
-	//	  .attr("x",padding)
-	//	  .attr("y",funtion(d,i){ return padding + i * (height + padding); });
+	      svg.selectAll("text")
+		  .data(data)
+		  .enter()
+		  .append("text")
+		  .text(function(d){ return d.label;})
+		  .attr("x",padding)
+		  .attr("y",funtion(d,i){ return padding + i * (height + padding); });
 	  };
 	  
 	</script>
