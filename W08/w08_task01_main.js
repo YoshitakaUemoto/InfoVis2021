@@ -1,0 +1,96 @@
+d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/W04/W04/w04_task2.csv")
+    .then(data =>{
+	data.forEach( d => {d.label = d.label; d.width = +d.width;});
+
+	var config = {
+	    parent: '#drawing_region',
+	    width:256,
+	    height:256,
+	    margin: {top:10, right:10, bottom:25, left:25}
+	};
+
+	const barchart = new BarChart(config, data);
+	barchart.update();
+    })
+    .catch(error =>{
+	console.log(error);
+    });
+
+class BarChart{
+
+    constuctor (config,data){
+	this.config = {
+	    parent: config.parent,
+	    width:config.width ||256,
+	    height:config.height || 256,
+	    margin: config.margin || {top:10, right:10, bottom:25, left:25}
+	}
+	this.data = data;
+	this.init();
+    }
+
+    init(){
+	let self = this;
+
+	self.svg = d3.select(self.config.parent)
+	    .attr('width', self.config.width)
+	    .attr('height', self.config.height);
+
+	self.chart = svg.append('g')
+	    .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
+	self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
+	self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
+
+	// Initialize axis scales
+	self.xscale = d3.scaleLinear()
+	    .domain([0, d3.max(self.data, d => d.width)])
+	    .range([0, inner_width]);
+	
+	self.yscale = d3.scaleBand()
+	    .domain(self.data.map(d => d.label))
+	    .range([0, inner_height])
+	    .paddingInner(0.1);
+
+	// Initialize axes
+	self.xaxis = d3.axisBottom(self. xscale )
+	    .ticks(5)
+	    .tickSizeOuter(0);
+
+	self.yaxis = d3.axisLeft( self.yscale )
+	    .tickSizeOuter(0);
+
+	// Draw the axis
+	self.xaxis_group = self.chart.append('g')
+	    .attr('transform', `translate(0, ${inner_height})`)
+	    //.call( xaxis );
+
+	self.yaxis_group = chart.append('g')
+	    //.call( yaxis );
+    }
+
+    update(){
+	let self = this;
+
+	//self.xscale.domain([0,d3.max(self.data,d => d.width)]);
+	//self.yscale.domain(self.data.map(d => d.label));
+	self.render();
+    }
+    render(){
+	let self = this;
+
+	// Draw bars
+	self.chart.selectAll("rect")
+	    .data(self.data)
+	    .enter()
+	    .append("rect")
+	    .attr("x", 0)
+	    .attr("y", d => yscale(self.data.label))
+	    .attr("width", d => xscale(self.data.width))
+	    .attr("height", yscale.bandwidth());
+
+	self.xaxis_group
+	    .call(self.xaxis);
+	self.yaxis_group
+	    .call(self.yaxis);
+    }
+}
