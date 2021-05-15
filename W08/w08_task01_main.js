@@ -36,7 +36,7 @@ class BarChart{
 	    .attr('width', self.config.width)
 	    .attr('height', self.config.height);
 
-	self.chart = svg.append('g')
+	self.chart = self.svg.append('g')
 	    .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
 	self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
 	self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
@@ -44,11 +44,11 @@ class BarChart{
 	// Initialize axis scales
 	self.xscale = d3.scaleLinear()
 	    .domain([0, d3.max(self.data, d => d.width)])
-	    .range([0, inner_width]);
+	    .range([0, self.inner_width]);
 	
 	self.yscale = d3.scaleBand()
 	    .domain(self.data.map(d => d.label))
-	    .range([0, inner_height])
+	    .range([0, self.inner_height])
 	    .paddingInner(0.1);
 
 	// Initialize axes
@@ -61,10 +61,10 @@ class BarChart{
 
 	// Draw the axis
 	self.xaxis_group = self.chart.append('g')
-	    .attr('transform', `translate(0, ${inner_height})`)
+	    .attr('transform', `translate(0, ${self.inner_height})`)
 	    //.call( xaxis );
 
-	self.yaxis_group = chart.append('g')
+	self.yaxis_group = self.chart.append('g')
 	    //.call( yaxis );
     }
 
@@ -79,9 +79,7 @@ class BarChart{
 	let self = this;
 
 	// Draw bars
-	self.chart.selectAll("rect")
-	    .data(self.data)
-	    .enter()
+	self.chart.selectAll("rect").data(self.data).enter()
 	    .append("rect")
 	    .attr("x", 0)
 	    .attr("y", d => yscale(self.data.label))

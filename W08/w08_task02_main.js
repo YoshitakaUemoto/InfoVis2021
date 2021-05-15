@@ -36,7 +36,7 @@ class LineChart{
 	    .attr('width', self.config.width)
 	    .attr('height', self.config.height);
 
-	self.chart = svg.append('g')
+	self.chart = self.svg.append('g')
 	    .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
 
 	self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
@@ -48,7 +48,7 @@ class LineChart{
 //	    .domain([0, d3.max(self.data, d => d.width)])
 	    .range([0, self.inner_width]);
 	
-	self.yscale = d3.scaleBand()
+	self.yscale = d3.scaleLinear()
 //	    .domain(self.data.map(d => d.label))
 	    .range([0, self.inner_height])
 	    .paddingInner(0.1);
@@ -79,7 +79,7 @@ class LineChart{
 
 	const ymin = d3.min(self.data, d => d.y) - space;
 	const ymax = d3.max(self.data, d => d.y) + space;
-	self.xscale.domain([ymin,ymax]);
+	self.yscale.domain([ymin,ymax]);
 
 	self.render();
     }
