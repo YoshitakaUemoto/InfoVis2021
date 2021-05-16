@@ -1,6 +1,6 @@
 d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/W08/w08_task2.csv")
     .then(data =>{
-	data.forEach( d => {d.x = +d.x; d.y = +d.y;});
+	data.forEach( d => {d.x = +d.x + 25; d.y = +d.y;});
 
 	var config = {
 	    parent: '#drawing_region',
@@ -18,7 +18,7 @@ d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/W08/w08_task2.csv")
 
 class LineChart{
 
-    constuctor (config,data){
+    constructor (config,data){
 	this.config = {
 	    parent: config.parent,
 	    width:config.width ||256,
@@ -45,23 +45,20 @@ class LineChart{
 
 	// Initialize axis scales
 	self.xscale = d3.scaleLinear()
-//	    .domain([0, d3.max(self.data, d => d.width)])
+	    .domain([0, d3.max(self.data, d => d.x)])
 	    .range([0, self.inner_width]);
 	
 	self.yscale = d3.scaleLinear()
-//	    .domain(self.data.map(d => d.label))
-	    .range([0, self.inner_height])
-	    .paddingInner(0.1);
+	    .domain([0, d3.max(self.data,d => d.y)])
+	    .range([0, self.inner_height]);
 
 	self.xaxis = d3.axisBottom(self.xscale)
-	    .ticks(3)
-	    .tickSize(5)
-	    .tickPadding(5);
+	    .ticks(5)
+	    .tickSize(5);
 
 	self.yaxis = d3.axisLeft(self.yscale)
-	    .ticks(3)
-	    .tickSize(5)
-	    .tickPadding(5);
+	    .ticks(5)
+	    .tickSize(5);
 
 	self.xaxis_group = self.chart.append('g')
 	    .attr('transform',`translate(0, ${self.inner_height})`);
@@ -72,29 +69,41 @@ class LineChart{
     update(){
 	let self = this;
 
-	const space = 10;
-	const xmin = d3.min(self.data, d => d.x) - space;
-	const xmax = d3.max(self.data, d => d.x) + space;
-	self.xscale.domain([xmin,xmax]);
+	//const space = 10;
+	const xmin = d3.min(self.data, d => d.x);
+	const xmax = d3.max(self.data, d => d.x);
+	self.xscale.domain([0,xmax]);
 
-	const ymin = d3.min(self.data, d => d.y) - space;
-	const ymax = d3.max(self.data, d => d.y) + space;
-	self.yscale.domain([ymin,ymax]);
+	const ymin = d3.min(self.data, d => d.y);
+	const ymax = d3.max(self.data, d => d.y);
+	self.yscale.domain([ymax,0]);
 
 	self.render();
     }
 
     render(){
+	let self = this;
 
+	
 	self.line = d3.line()
-	    .x( d => self.xscale(d.x))
-	    .y( d => self.yscale(d.y) );
+	      .x( d => self.xscale(d.x))
+	      .y( d => self.yscale(d.y));
 
 	self.svg.append('path')
-	    .attr('d', line(data))
+	    .attr('d', self.line(self.data))
 	    .attr('stroke', 'black')
 	    .attr('fill', 'none');
 
+	self.svg.selectAll("circle")
+	    .data(self.data)
+	    .enter()
+	    .append("circle")
+	    .attr("cx",d => self.xscale(d.x))
+	    .attr("cy",d => self.yscale(d.y))
+	    .attr("r",10)
+	    .style("fill");
+
+	
 	self.xaxis_group
 	    .call(self.xaxis);
 

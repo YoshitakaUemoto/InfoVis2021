@@ -1,6 +1,6 @@
 d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/W04/W04/w04_task2.csv")
     .then(data =>{
-	data.forEach( d => {d.label = d.label; d.width = +d.width;});
+	data.forEach( d => { d.width = +d.width;});
 
 	var config = {
 	    parent: '#drawing_region',
@@ -18,7 +18,7 @@ d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/W04/W04/w04_task2.csv")
 
 class BarChart{
 
-    constuctor (config,data){
+    constructor (config,data){
 	this.config = {
 	    parent: config.parent,
 	    width:config.width ||256,
@@ -28,7 +28,7 @@ class BarChart{
 	this.data = data;
 	this.init();
     }
-
+    
     init(){
 	let self = this;
 
@@ -70,21 +70,23 @@ class BarChart{
 
     update(){
 	let self = this;
-
-	//self.xscale.domain([0,d3.max(self.data,d => d.width)]);
-	//self.yscale.domain(self.data.map(d => d.label));
+	const xmin = d3.min(self.data,d => d.width);
+	const xmax = d3.max(self.data,d => d.width);
+	self.xscale.domain([0,xmax]);
+	self.yscale.domain(self.data.map(d => d.label));
 	self.render();
     }
     render(){
 	let self = this;
 
-	// Draw bars
-	self.chart.selectAll("rect").data(self.data).enter()
+	self.chart.selectAll("rect")
+	    .data(self.data)
+	    .enter()
 	    .append("rect")
 	    .attr("x", 0)
-	    .attr("y", d => yscale(self.data.label))
-	    .attr("width", d => xscale(self.data.width))
-	    .attr("height", yscale.bandwidth());
+	    .attr("y", d => self.yscale(d.label))
+	    .attr("width", d => self.xscale(d.width))
+	    .attr("height", self.yscale.bandwidth());
 
 	self.xaxis_group
 	    .call(self.xaxis);
