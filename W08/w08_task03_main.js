@@ -87,7 +87,6 @@ class PieChart{
 	    .attr("dy","5px")
 	    .attr("font","10px")
 	    .attr("text-anchor","middle")
-	//.text(function(d){return d.label});
-	    .text(d => d.data.label)
+	    .text(d => d.data.label);
     }
 }
