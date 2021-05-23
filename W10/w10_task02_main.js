@@ -22,7 +22,7 @@ class ScatterPlot{
 
     constructor(config,data){
 	this.config = {
-	    parant: config.parent,
+	    parent: config.parent,
 	    width: config.width || 256,
 	    height: config.height || 256,
 	    margin: config.margin || {top:10,right:10,bottom:10,left:10},
@@ -47,7 +47,7 @@ class ScatterPlot{
 	self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
-	 self.xscale = d3.scaleLinear()
+	self.xscale = d3.scaleLinear()
             .range( [0, self.inner_width] );
 
         self.yscale = d3.scaleLinear()
@@ -117,22 +117,23 @@ class ScatterPlot{
 	    .attr('cx', d => self.xscale(d.x))
 	    .attr('cy', d => self.yscale(d.y))
 	    .attr('r', d => d.r);
-	
-//	    .on('mouseover', (e,d) => {
-//		d3.select('#tooltip')
-//		    .style('opacity', 1)
-//		    .html(`<div class="tooltip-label">Position</div>(${d.x}, ${d.y})`);
-//	    })
-//	    .on('mousemove', (e) => {
-//		const padding = 10;
-//		d3.select('#tooltip')
-//		    .style('left', (e.pageX + padding) + 'px')
-//		    .style('top', (e.pageY + padding) + 'px');
-//	    })
-//	    .on('mouseleave', () => {
-//		d3.select('#tooltip')
-//		    .style('opacity', 0);
-//	    });
+
+	circles
+	    .on('mouseover', (e,d) => {
+		d3.select('#tooltip')
+		    .style('opacity', 1)
+		    .html(`<div class="tooltip-label">(x,y,radius)</div>(${d.x}, ${d.y},${d.r})`);
+	    })
+	    .on('mousemove', (e) => {
+		const padding = 10;
+		d3.select('#tooltip')
+		    .style('left', (e.pageX + padding) + 'px')
+		    .style('top', (e.pageY + padding) + 'px');
+	    })
+	    .on('mouseleave', () => {
+		d3.select('#tooltip')
+		    .style('opacity', 0);
+	    });
 
 	self.xaxis_group
 	    .call(self.xaxis);
