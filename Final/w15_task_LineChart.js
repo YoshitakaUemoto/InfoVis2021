@@ -34,7 +34,7 @@ class LineChart {
             .range( [self.inner_height, 0] );
 
         self.xaxis = d3.axisBottom( self.xscale )
-            .ticks(3)
+            .ticks(6)
             .tickSize(5)
             .tickPadding(5);
 
@@ -107,7 +107,7 @@ class LineChart {
         const line_width = 3;
 	const circle_radius = 5;
 //	var line_color;
-	if(fillter.length ==0){
+	if(filter.length ==0){
 	    let lineb = self.chart.append("path")
 		.attr('d',self.lineb(self.data))
 		.attr('stroke','aqua')
@@ -134,41 +134,42 @@ class LineChart {
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
 	}else{
-	    if(fillter.include('book')){
+	    if(filter.include('book')){
 		let lineb = self.chart.append("path")
-		.attr('d',self.lineb(self.data))
-		.attr('stroke','aqua')
-		.attr('stroke-width',line_width)
-		.attr('fill','none');
+		    .attr('d',self.lineb(self.data))
+		    .attr('stroke','aqua')
+		    .attr('stroke-width',line_width)
+		    .attr('fill','none');
 	    }
-	    if(fillter.include('magazine')){
+	    if(filter.include('magazine')){
 		let linem = self.chart.append("path")
 		.attr('d',self.linem(self.data))
 		.attr('stroke','blue')
-		.attr('stroke-width',line_width)
-		.attr('fill','none');
+		    .attr('stroke-width',line_width)
+		    .attr('fill','none');
 	    }
-	    if(fillter.include('ebook')){
+	    if(filter.include('ebook')){
 		let lineeb = self.chart.append("path")
 		.attr('d',self.lineeb(self.data))
 		.attr('stroke','red')
-		.attr('stroke-width',line_width)
-		.attr('fill','none');
+		    .attr('stroke-width',line_width)
+		    .attr('fill','none');
 	    }
-	    if(fillter.include('emagazine')){
+	    if(filter.include('emagazine')){
 		let lineem = self.chart.append("path")
 		.attr('d',self.lineem(self.data))
 		.attr('stroke','purple')
-		.attr('stroke-width',line_width)
-		.attr('fill','none');
+		    .attr('stroke-width',line_width)
+		    .attr('fill','none');
 	    }
-	    if(fillter.include('ecomic')){
+	    if(filter.include('ecomic')){
 		let lineec = self.chart.append("path")
 		.attr('d',self.lineec(self.data))
 		.attr('stroke','fuchsia')
-		.attr('stroke-width',line_width)
+		    .attr('stroke-width',line_width)
 		.attr('fill','none');
 	    }
+	}
         self.xaxis_group
             .call( self.xaxis );
 
@@ -176,3 +177,4 @@ class LineChart {
             .call( self.yaxis );
     }
 }
+
