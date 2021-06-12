@@ -1,7 +1,7 @@
 let input_data;
 let line_chart;
 let bar_chart;
-let filter = ['book'];
+let filter = [];
 
 d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/Final/bookdata.csv")
     .then( data => {

@@ -103,10 +103,8 @@ class LineChart {
 
     render() {
         let self = this;
-
         const line_width = 3;
 	const circle_radius = 5;
-//	var line_color;
 	if(filter.length ==0){
 	    let lineb = self.chart.append("path")
 		.attr('d',self.lineb(self.data))

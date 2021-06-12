@@ -180,7 +180,6 @@ class BarChart {
                 d3.select(this).classed('active', !is_active);
             });
 
-	console.log(self.data,d => d.ecomic);
 	let ecomic = self.chart.append("g")
 	    .selectAll(".bar")
             .data(self.data)
