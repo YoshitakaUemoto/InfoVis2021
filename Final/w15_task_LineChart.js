@@ -105,6 +105,7 @@ class LineChart {
         let self = this;
         const line_width = 3;
 	const circle_radius = 5;
+	
 	if(filter.length ==0){
 	    let lineb = self.chart.append("path")
 		.attr('d',self.lineb(self.data))
@@ -184,6 +185,17 @@ class LineChart {
 
         self.yaxis_group
             .call( self.yaxis );
+    }
+
+    linedelete(){
+	let self = this;
+	let lineb = self.chart.append("rect")
+	    .attr('x',1)
+	    .attr('y','0')
+	    .attr('width',self.inner_width)
+	    .attr('height',self.inner_height)
+	    .style('fill','white');
+	
     }
 }
 

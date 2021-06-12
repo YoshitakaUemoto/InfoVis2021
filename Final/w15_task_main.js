@@ -51,11 +51,13 @@ d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/Final/bookdata.csv")
 
 function Filter() {
 //    if ( filter.length == 0 ) {
-//        scatter_plot.data = input_data;
+//        line_chart.data = input_data;
 //    }
 //    else {
-//        scatter_plot.data = input_data.filter( d => filter.includes( d.species ) );
-    //    }
+//	if(filter.includes('book'))
+//        line_chart.data = input_data.filter( d => filter.includes( d.species ) );
+//        }
     console.log(filter);
+    line_chart.linedelete();
     line_chart.update();
 }

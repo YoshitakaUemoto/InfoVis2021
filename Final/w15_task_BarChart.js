@@ -105,7 +105,7 @@ class BarChart {
             .on('click', function(ev,d) {
                 const is_active = filter.includes('book');
                 if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
+                    filter = filter.filter( f => f !== 'book' );
                 }
                 else {
                     filter.push('book' );
@@ -127,7 +127,7 @@ class BarChart {
             .on('click', function(ev,d) {
                 const is_active = filter.includes('magazine');
                 if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
+                    filter = filter.filter( f => f !== 'magazine' );
                 }
                 else {
                     filter.push('magazine' );
@@ -149,7 +149,7 @@ class BarChart {
             .on('click', function(ev,d) {
                 const is_active = filter.includes('ebook');
                 if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
+                    filter = filter.filter( f => f !== 'ebook' );
                 }
                 else {
                     filter.push('ebook' );
@@ -171,7 +171,7 @@ class BarChart {
             .on('click', function(ev,d) {
                 const is_active = filter.includes('emagazine');
                 if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
+                    filter = filter.filter( f => f !== 'emagazine' );
                 }
                 else {
                     filter.push('emagazine' );
@@ -193,7 +193,7 @@ class BarChart {
             .on('click', function(ev,d) {
                 const is_active = filter.includes('ecomic');
                 if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
+                    filter = filter.filter( f => f !== 'ecomic' );
                 }
                 else {
                     filter.push('ecomic' );
