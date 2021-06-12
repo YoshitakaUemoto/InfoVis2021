@@ -1,7 +1,7 @@
 let input_data;
 let line_chart;
 let bar_chart;
-let filter = [];
+let filter = ['book'];
 
 d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/Final/bookdata.csv")
     .then( data => {
@@ -34,15 +34,16 @@ d3.csv("https://yoshitakauemoto.github.io/InfoVis2021/Final/bookdata.csv")
         }, input_data );
         line_chart.update();
 
-//        bar_chart = new BarChart( {
-//            parent: '#drawing_region_barchart',
-//            width: 256,
-//            height: 256,
-//            margin: {top:10, right:10, bottom:50, left:50},
-//            xlabel: '年度',
-//            cscale: color_scale
-//        }, input_data );
-//        bar_chart.update();
+        bar_chart = new BarChart( {
+            parent: '#drawing_region_barchart',
+            width: 400,
+            height: 400,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: '年度',
+	    ylabel: '売上額',
+            cscale: color_scale
+        }, input_data );
+        bar_chart.update();
     })
     .catch( error => {
         console.log( error );
@@ -54,6 +55,7 @@ function Filter() {
 //    }
 //    else {
 //        scatter_plot.data = input_data.filter( d => filter.includes( d.species ) );
-//    }
+    //    }
+    console.log(filter);
     line_chart.update();
 }

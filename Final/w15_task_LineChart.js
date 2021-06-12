@@ -113,11 +113,14 @@ class LineChart {
 		.attr('stroke','aqua')
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
+
+	    
 	    let linem = self.chart.append("path")
 		.attr('d',self.linem(self.data))
 		.attr('stroke','blue')
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
+	    
 	    let lineeb = self.chart.append("path")
 		.attr('d',self.lineeb(self.data))
 		.attr('stroke','red')
@@ -134,35 +137,43 @@ class LineChart {
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
 	}else{
-	    if(filter.include('book')){
+	    if(filter.includes('book')){
 		let lineb = self.chart.append("path")
 		    .attr('d',self.lineb(self.data))
 		    .attr('stroke','aqua')
 		    .attr('stroke-width',line_width)
 		    .attr('fill','none');
+		let circleb = self.chart.selectAll("circleb")
+		.data(self.data)
+		.enter()
+		.append("circleb")
+		.attr('cx',self.lineb.x())
+		.attr('cy',self.lineb.y())
+		.attr('r',circle_radius)
+		.attr('fill','aqua');
 	    }
-	    if(filter.include('magazine')){
+	    if(filter.includes('magazine')){
 		let linem = self.chart.append("path")
 		.attr('d',self.linem(self.data))
 		.attr('stroke','blue')
 		    .attr('stroke-width',line_width)
 		    .attr('fill','none');
 	    }
-	    if(filter.include('ebook')){
+	    if(filter.includes('ebook')){
 		let lineeb = self.chart.append("path")
 		.attr('d',self.lineeb(self.data))
 		.attr('stroke','red')
 		    .attr('stroke-width',line_width)
 		    .attr('fill','none');
 	    }
-	    if(filter.include('emagazine')){
+	    if(filter.includes('emagazine')){
 		let lineem = self.chart.append("path")
 		.attr('d',self.lineem(self.data))
 		.attr('stroke','purple')
 		    .attr('stroke-width',line_width)
 		    .attr('fill','none');
 	    }
-	    if(filter.include('ecomic')){
+	    if(filter.includes('ecomic')){
 		let lineec = self.chart.append("path")
 		.attr('d',self.lineec(self.data))
 		.attr('stroke','fuchsia')
