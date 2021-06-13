@@ -112,7 +112,6 @@ class LineChart {
 		.attr('stroke','aqua')
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
-
 	    
 	    let linem = self.chart.append("path")
 		.attr('d',self.linem(self.data))
@@ -125,6 +124,7 @@ class LineChart {
 		.attr('stroke','red')
 		.attr('stroke-width',line_width)
 		.attr('fill','none');
+	    
 	    let lineem = self.chart.append("path")
 		.attr('d',self.lineem(self.data))
 		.attr('stroke','purple')
@@ -142,14 +142,6 @@ class LineChart {
 		    .attr('stroke','aqua')
 		    .attr('stroke-width',line_width)
 		    .attr('fill','none');
-		let circleb = self.chart.selectAll("circleb")
-		.data(self.data)
-		.enter()
-		.append("circleb")
-		.attr('cx',self.lineb.x())
-		.attr('cy',self.lineb.y())
-		.attr('r',circle_radius)
-		.attr('fill','aqua');
 	    }
 	    if(filter.includes('magazine')){
 		let linem = self.chart.append("path")
